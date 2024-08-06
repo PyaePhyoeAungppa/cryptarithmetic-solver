@@ -44,7 +44,12 @@ class CryptarithmeticSolver
 
     private function isValid($assignment)
     {
-        // ... (keep the existing isValid method)
+        $hier = $assignment['H'] * 1000 + $assignment['I'] * 100 + $assignment['E'] * 10 + $assignment['R'];
+        $gibt = $assignment['G'] * 1000 + $assignment['I'] * 100 + $assignment['B'] * 10 + $assignment['T'];
+        $es = $assignment['E'] * 10 + $assignment['S'];
+        $neues = $assignment['N'] * 10000 + $assignment['E'] * 1000 + $assignment['U'] * 100 + $assignment['E'] * 10 + $assignment['S'];
+
+        return $hier + $gibt + $es == $neues;
     }
 
     public function getIterations()
