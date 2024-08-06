@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Cryptarithmetic Solver
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Description
+This Laravel-based web application solves the cryptarithmetic puzzle "HIER + GIBT + ES = NEUES". It employs a backtracking algorithm to find solutions, utilizing Laravel's job batching feature for efficient processing.
 
-## About Laravel
+## The Puzzle
+The puzzle assigns a unique digit (0-9) to each letter in the equation:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```
+HIER + GIBT + ES = NEUES
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The goal is to find assignments that make the equation true.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
+- Solves the "HIER + GIBT + ES = NEUES" cryptarithmetic puzzle
+- Uses Laravel's job batching for parallel processing
+- Web interface to initiate solving and view results
+- Database storage of solutions
+- Real-time progress tracking of the solving process
 
-## Learning Laravel
+## Requirements
+- PHP ^8.1
+- Laravel ^10.10
+- MySQL or compatible database
+- Composer
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/PyaePhyoeAungppa/cryptarithmetic-solver.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd cryptarithmetic-solver
+   ```
+3. Install dependencies:
+   ```bash
+   composer install
+   ```
+4. Copy the `.env.example` file to `.env` and configure your database settings.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+5. Generate an application key:
+   ```bash
+   php artisan key:generate
+   ```
+6. Run migrations:
+   ```bash
+   php artisan migrate
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Usage
+1. Start the Laravel development server:
+   ```bash
+   php artisan serve
+   ```
+2. In a separate terminal, start the queue worker:
+   ```bash
+   php artisan queue:work
+   ```
+3. Open your browser and navigate to `http://localhost:8000`.
+4. Click the "Solve Puzzle" button to start the solving process.
+5. Refresh the page to see updated results and progress.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## How It Works
+1. The application divides the problem space into chunks.
+2. Each chunk is processed as a separate job in Laravel's job batching system.
+3. The solver uses a backtracking algorithm to find valid solutions within each chunk.
+4. Solutions are stored in the database as they are found.
+5. The web interface allows tracking of the overall progress and viewing of found solutions.
